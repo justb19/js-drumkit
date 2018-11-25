@@ -1,7 +1,16 @@
-console.log("practice log");
 window.addEventListener('keydown', function(e){
 	const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-	console.log(audio);
-	if(!audio) returnl //stop the function
+	const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); 
+	if(!audio) return //stops the function altogether
+	audio.currentTime = 0; //Rewinds beat to the start (What does this really do?)
+	audio.play();
+	console.log(key);
+	key.classList.add('playing'); //vanilla js way of jquery's .addClass('')
 });
 
+function removeTransition(e) {
+	console.log(e);
+};
+ const keys = document.querySelectorAll('.key');
+
+ keys.forEach(key => key.addEventListener('transitionend', removeTransition));
