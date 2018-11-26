@@ -2,7 +2,6 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<script type="text/javascript" src="assets/js/index.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<title>js-drumkit</title>
 </head>
@@ -55,5 +54,28 @@
   <audio data-key="74" src="sounds/snare.wav"></audio>
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>
+function playSound(e) {
+  
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+	const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); 
+	if(!audio) return //stops the function altogether
+	audio.currentTime = 0; //Rewinds beat to the start (What does this really do?)
+	audio.play();
+	key.classList.add('playing'); //vanilla js way of jquery's .addClass('')
+}
+
+function removeTransition(e) {
+	if (e.propertyName !== 'transform') return;
+  this.classList.remove('playing'); //changes the class of the key that's pressed  
+}
+
+ const keys = document.querySelectorAll('.key');
+ keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+ window.addEventListener('keydown', playSound);
+ 
+</script>
+
 </body>
 </html>
